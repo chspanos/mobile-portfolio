@@ -1,10 +1,3 @@
-/*
- After you have changed the settings under responsive_images
- run this with one of these options:
-  "grunt" alone creates a new, completed images directory
-  "grunt clean" removes the images directory
-  "grunt responsive_images" re-processes images without removing the old ones
-*/
 
 module.exports = function(grunt) {
 
@@ -14,10 +7,15 @@ module.exports = function(grunt) {
         options: {
           engine: 'gm',
           sizes: [{
-            /* small */
+            /* thumbnail */
             width: 100,
             name: '100',
             quality: 20
+          },{
+            /* large */
+            width: 750,
+            name: '750',
+            quality: 50
           }]
         },
 
@@ -30,21 +28,63 @@ module.exports = function(grunt) {
       }
     },
 
-    /* Clear out the images directory if it exists */
+    /* Clear out the distribution resource directories if existing */
     clean: {
       dev: {
-        src: ['dist/views/images'],
+        src: ['dist/views/images', 'dist/img', 'dist/css', 'dist/js']
       },
     },
 
-    /* Generate the images directory if it is missing */
+    /* Generate the distribution resource directories if missing */
     mkdir: {
       dev: {
         options: {
-          create: ['dist/views/images']
+          create: ['dist/views/images', 'dist/img', 'dist/css', 'dist/js']
         },
       },
     },
+
+    /* Minify images */
+    imagemin: {
+      target1: {
+        files: [{
+          expand: true,
+          cwd: 'src/img',
+          src: ['*.{png,jpg,gif}'],
+          dest: 'dist/img'
+        }]
+      },
+      target2: {
+        files: [{
+          expand: true,
+          cwd: 'views/images',
+          src: ['pizzeria-*.jpg', '*.png'],
+          dest: 'dist/views/images'
+        }]
+      }
+    },
+
+    /* Minify CSS style files */
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'src/css',
+          src: ['*.css', '!*.min.css'],
+          dest: 'dist/css',
+          ext: '.min.css'
+        }]
+      }
+    },
+
+    /* Minify JS files */
+    uglify: {
+      target: {
+        files: {
+          'dist/js/perfmatters.min.js': 'src/js/perfmatters.js'
+        }
+      }
+    }
 
   });
 
@@ -52,6 +92,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-mkdir');
-  grunt.registerTask('default', ['clean', 'mkdir', 'responsive_images']);
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.registerTask('default', ['clean', 'mkdir', 'responsive_images', 'imagemin', 'cssmin', 'uglify']);
 
 };
