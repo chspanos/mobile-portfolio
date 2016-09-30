@@ -421,11 +421,11 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-  // Iterates through pizza elements on the page and changes their widths
-  // Refactor changePizzaSizes to eliminate forced synchronous layout. The old
+  // Iterates through pizza elements on the page and changes their widths.
+  // Refactored changePizzaSizes to eliminate forced synchronous layout. The old
   // version of this function queried the DOM for offsetWidth and then used this
-  // value to compute a new width in pixels and then reset the width style,
-  // producing a forced synchronous layout. This refactor uses % widths instead.
+  // value to compute a new width in pixels, producing a forced synchronous layout.
+  // This refactor uses % widths instead.
   function changePizzaSizes(size) {
     switch(size) {
       case "1":
@@ -493,10 +493,19 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
+  // precompute the 5 possible phase moves based on this scrollTop postion
+  // to eliminate forced synchronous layout
+  var phaseFactor = document.body.scrollTop / 1250;
+  var moves = [];
+  for (var i = 0; i < 5; i++) {
+    moves.push(100 * Math.sin(phaseFactor + (i % 5)));
+  }
+
+  // select elements and apply move
   var items = document.querySelectorAll('.mover');
+
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    items[i].style.left = items[i].basicLeft + moves[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -507,6 +516,8 @@ function updatePositions() {
     var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
     logAverageFrame(timesToUpdatePosition);
   }
+
+  // requestAnimationFrame(updatePositions);
 }
 
 // runs updatePositions on scroll
