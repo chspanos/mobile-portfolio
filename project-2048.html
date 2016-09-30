@@ -10,9 +10,10 @@
     <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
     <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
 
-    <link href="css/style.css" rel="stylesheet">
+    <!-- Use minified versions of CSS style files -->
+    <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- Use media queries to take print.css out of the CRP -->
-    <link href="css/print.css" rel="stylesheet" media="print">
+    <link href="dist/css/print.min.css" rel="stylesheet" media="print">
 
     <script>
       (function(w,g){w['GoogleAnalyticsObject']=g;
@@ -25,12 +26,14 @@
     <!-- Make this Analytics script asynchronous, so it doesn't block DOM construction -->
     <!-- JS file not found. Corrected source reference -->
     <script async src="http://www.google-analytics.com/analytics.js"></script>
-    <script src="js/perfmatters.js"></script>
+    <!-- Use minified Javascript -->
+    <script src="dist/js/perfmatters.min.js"></script>
   </head>
 
   <body>
     <header>
-      <a href="/"><img src="img/profilepic.jpg"></a>
+      <!-- Use optimized images -->
+      <a href="/"><img src="dist/img/profilepic.jpg"></a>
       <p>Cameron Pittman<br><span>Course Developer</span></p>
     </header>
 
@@ -41,7 +44,8 @@
 
       <div class="content">
 
-        <img class="img-responsive" src="img/2048.png">
+        <!-- Use optimized images -->
+        <img class="img-responsive" src="dist/img/2048.png">
 
         <p>Bacon ipsum dolor sit amet et pork belly porchetta excepteur dolor, laborum laboris magna labore dolore in fugiat beef ribs. Fugiat leberkas nulla do kevin dolore. Flank hamburger dolor swine prosciutto sirloin pig jerky sunt consequat pariatur. Mollit meatloaf nostrud laboris shoulder excepteur velit officia meatball nisi turkey. Nulla jowl spare ribs, et drumstick magna frankfurter.</p>
 
