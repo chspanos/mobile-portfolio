@@ -493,7 +493,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  // precompute the 5 possible phase moves based on this scrollTop postion
+  // precompute the 5 possible phase moves based on the scrollTop postion
   // to eliminate forced synchronous layout
   var phaseFactor = document.body.scrollTop / 1250;
   var moves = [];
@@ -501,8 +501,8 @@ function updatePositions() {
     moves.push(100 * Math.sin(phaseFactor + (i % 5)));
   }
 
-  // select elements and apply move
-  var items = document.querySelectorAll('.mover');
+  // Use a better selector to select elements
+  var items = document.getElementsByClassName('mover');
 
   for (var i = 0; i < items.length; i++) {
     items[i].style.left = items[i].basicLeft + moves[i % 5] + 'px';
@@ -517,17 +517,32 @@ function updatePositions() {
     logAverageFrame(timesToUpdatePosition);
   }
 
-  // requestAnimationFrame(updatePositions);
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+// Changed scroll eventListener to incorporate a RAF
+var ticking = false;
+window.addEventListener('scroll', function(e) {
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      updatePositions();
+      ticking = false;
+    });
+  }
+  ticking = true;
+});
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // We have too many moving pizzas. We can only see a few of them
+  // actually displayed on the screen. So it would be better
+  // to set the number of pizzas based on screen size
+  var s = 256; //Number of pixels in pizza bounding box
+  var cols = Math.floor(screen.width / s) + 1;
+  var rows = Math.floor(screen.height / s) + 1;
+  var numPizzas = rows * cols;
+
+  for (var i = 0; i < numPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
