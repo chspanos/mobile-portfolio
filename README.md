@@ -24,8 +24,7 @@ To obtain this score, I made the following optimizations to the code:
 The easiest way to view my optimized website is via my github page [here](https://chspanos.github.io/mobile-portfolio).
 
 Alternatively, you can:
-1. Clone a copy of my website from my github repository
-[here](https://github.com/chspanos/mobile-portfolio).
+1. Clone a copy of my website from my github repository [here](https://github.com/chspanos/mobile-portfolio).
 2. Start your favorite web browser.
 3. Open the root directory version of ```index.html``` in the web browser.
 
@@ -40,15 +39,13 @@ From my github repository, you can also inspect the project files.
 2. Change to the project root directory
 3. In my root directory, you will find the ```package.json``` and ```Gruntfile.js``` files I used for my automations.
 4. Install the project dependencies with ```npm install```. My ```Gruntfile.js``` requires installing the following plug-ins:
-  ```
-  npm install grunt-responsive-images --save-dev
-  npm install grunt-contrib-clean --save-dev
-  npm install grunt-contrib-copy --save-dev
-  npm install grunt-mkdir --save-dev
-  npm install grunt-contrib-imagemin --save-dev
-  npm install grunt-contrib-cssmin --save-dev
-  npm install grunt-contrib-uglify --save-dev
-  ```
+  * ```npm install grunt-responsive-images --save-dev```
+  * ```npm install grunt-contrib-clean --save-dev```
+  * ```npm install grunt-contrib-copy --save-dev```
+  * ```npm install grunt-mkdir --save-dev```
+  * ```npm install grunt-contrib-imagemin --save-dev```
+  * ```npm install grunt-contrib-cssmin --save-dev```
+  * ```npm install grunt-contrib-uglify --save-dev```
 5. Run Grunt with ```grunt```.
 
 This will automatically perform the following actions:
