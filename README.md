@@ -1,55 +1,79 @@
-## Website Performance Optimization portfolio project
+# Website Performance Optimization
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+The goal of this project was to optimize this online portfolio for speed. The assignment had two parts.
+* First, we were challenged to optimize the critical rendering path to make the ```index.html``` page render as quickly as possible by applying the techniques we learned in the _Web Performance Optimization_ course.
+* Second, we were challenged to optimize Frames per Second in the ```views/pizza.html``` page by applying the techniques we learned in the _Browser Rendering Optimization_ course.
 
-To get started, check out the repository and inspect the code.
+You can view my optimized portfolio on my github page [here](https://chspanos.github.io/mobile-portfolio).
 
-### Getting started
+###  Part 1: Optimize PageSpeed Insights score for index.html
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+My optimized portfolio achieved a mobile score of **95/100** and a desktop score of **97/100** on [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/).
 
-Some useful tips to help you get started:
+To obtain this score, I made the following optimizations to the code:
+* Used media queries to take ```print.css``` out of the critical rendering path
+* Made the Google analytics script asynchronous
+* Used grunt-responsive-images to resize the ```pizzeria.jpg``` image to a width of 100px for use on the ```index.html``` page
+* Moved the Google fonts styles to the bottom of ```index.html``` and deferred loading
+* In-lined ```style.css```
+* Used grunt tools to minify the CSS, JavaScript files, and images, then updated all references in ```index.html``` and the project.html code to use the minified versions
+* Used grunt-responsive-images to resize the ```pizzeria.jpg``` image to a width of 750px to reduce load time on the ```pizza.html``` page.
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+#### Viewing my optimized portfolio
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+The easiest way to view my optimized website is via my github page [here](https://chspanos.github.io/mobile-portfolio).
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
+Alternatively, you can:
+1. Clone a copy of my website from my github repository [here](https://github.com/chspanos/mobile-portfolio).
+2. Start your favorite web browser.
+3. Open the root directory version of ```index.html``` in the web browser.
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
+From my github repository, you can also inspect the project files.
+* A complete copy of the original un-optimized portfolio is stored the subdirectory ```src/```. You can use this to inspect the starting point for this project.
+* The ```dist/``` subdirectory contains all the minified and optimized CSS, JS, and image resources. These were generated automatically using grunt.
+* The modified ```index.html``` and sub-project html files are located in the root directory.
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+#### How I used grunt to automate optimizations
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+1. If you don't already have it, download Grunt following the instructions given on the [Grunt Getting Started page](http://gruntjs.com/getting-started).
+2. Change to the project root directory
+3. In my root directory, you will find the ```package.json``` and ```Gruntfile.js``` files I used for my automations.
+4. Install the project dependencies with ```npm install```. My ```Gruntfile.js``` requires installing the following plug-ins:
+  * ```npm install grunt-responsive-images --save-dev```
+  * ```npm install grunt-contrib-clean --save-dev```
+  * ```npm install grunt-contrib-copy --save-dev```
+  * ```npm install grunt-mkdir --save-dev```
+  * ```npm install grunt-contrib-imagemin --save-dev```
+  * ```npm install grunt-contrib-cssmin --save-dev```
+  * ```npm install grunt-contrib-uglify --save-dev```
+5. Run Grunt with ```grunt```.
 
-####Part 2: Optimize Frames per Second in pizza.html
+This will automatically perform the following actions:
+* Clean and create a new subdirectory called ```dist/``` under the root directory with subdirectories for CSS files, JS files, and images.
+* Resize selected images using ```responsive_images```
+* Optimize images using ```imagemin```
+* Minify the CSS files using ```cssmin```
+* Minify the JavaScript files using ```uglify```
+* Store the optimized versions in the ```dist/``` subdirectory.
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+Note: You can run these steps individually, using ```grunt <option-name>```. For example, to minify the CSS files, run ```grunt cssmin```.
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+### Part 2: Optimize Frames per Second in pizza.html
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+The goal of this part of the project was to get rid of jank in ```views/pizza.html```. Specifically, we were assigned two challenges:
+* Frame Rate - Optimize ```views/js/main.js``` to make ```pizza.html``` render at a consistent 60 fps when scrolling.
+* Computation Efficiency - Reduce the time to resize the pizzas to less than 5 ms when using the pizza size slider.
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+To achieve these goals, I made the following optimizations to the code (All changes are in ```views/js/main.js``` unless otherwise indicated):
+* Refactored the ```changePizzaSizes()``` function to eliminate a forced synchronous layout.
+* Refactored the ```updatePositions()``` function to eliminate another forced synchronous layout.
+* Incorporated a ```requestAnimationFrame``` into the scroll function to smooth rendering.
+* Used a more efficient DOM selector to select the moving pizzas in ```updatePositions()```
+* Refactored the code for generating moving pizzas (See the ```eventListener``` code for ```DOMContentLoaded```) to create only as many moving pizzas as fit on the screen.
+* Since there are now many fewer moving pizzas, I put each one into its own layer with a ```will-change``` directive in ```views/css/style.css```.
+
+#### Customization with Bootstrap
+The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework.
 
 * <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
 * <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
