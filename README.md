@@ -36,19 +36,19 @@ From my github repository, you can also inspect the project files.
 
 #### How I used grunt to automate optimizations
 
-1. If you don't already have it, download Grunt following the instructions given on the Grunt Getting Started page [here](http://gruntjs.com/getting-started).
+1. If you don't already have it, download Grunt following the instructions given on the [Grunt Getting Started page](http://gruntjs.com/getting-started).
 2. Change to the project root directory
 3. In my root directory, you will find the ```package.json``` and ```Gruntfile.js``` files I used for my automations.
-4. Install the project dependencies with ```npm install```. My gruntfile requires installing the following plug-ins:
-```
-npm install grunt-responsive-images --save-dev
-npm install grunt-contrib-clean --save-dev
-npm install grunt-contrib-copy --save-dev
-npm install grunt-mkdir --save-dev
-npm install grunt-contrib-imagemin --save-dev
-npm install grunt-contrib-cssmin --save-dev
-npm install grunt-contrib-uglify --save-dev
-```
+4. Install the project dependencies with ```npm install```. My ```Gruntfile.js``` requires installing the following plug-ins:
+  ```
+  npm install grunt-responsive-images --save-dev
+  npm install grunt-contrib-clean --save-dev
+  npm install grunt-contrib-copy --save-dev
+  npm install grunt-mkdir --save-dev
+  npm install grunt-contrib-imagemin --save-dev
+  npm install grunt-contrib-cssmin --save-dev
+  npm install grunt-contrib-uglify --save-dev
+  ```
 5. Run Grunt with ```grunt```.
 
 This will automatically perform the following actions:
@@ -67,11 +67,11 @@ The goal of this part of the project was to get rid of jank in ```views/pizza.ht
 * Frame Rate - Optimize ```views/js/main.js``` to make ```pizza.html``` render at a consistent 60 fps when scrolling.
 * Computation Efficiency - Reduce the time to resize the pizzas to less than 5 ms when using the pizza size slider.
 
-To achieve these goals, I made the following optimizations to the code (All changes are in ```views/js/main.js``` unless otherwise noted):
-* Refactored the ```changePizzaSizes``` function to eliminate a forced synchronous layout.
-* Refactored the ```updatePositions``` function to eliminate another forced synchronous layout.
-* Incorporated a ```requestAnimationFrame``` into the scroll function in ```views/js/main.js``` to smooth rendering.
-* Used a more efficient DOM selector to select the moving pizzas in ```updatePositions```.
+To achieve these goals, I made the following optimizations to the code (All changes are in ```views/js/main.js``` unless otherwise indicated):
+* Refactored the ```changePizzaSizes()``` function to eliminate a forced synchronous layout.
+* Refactored the ```updatePositions()``` function to eliminate another forced synchronous layout.
+* Incorporated a ```requestAnimationFrame``` into the scroll function to smooth rendering.
+* Used a more efficient DOM selector to select the moving pizzas in ```updatePositions()```
 * Refactored the code for generating moving pizzas (See the ```eventListener``` code for ```DOMContentLoaded```) to create only as many moving pizzas as fit on the screen.
 * Since there are now many fewer moving pizzas, I put each one into its own layer with a ```will-change``` directive in ```views/css/style.css```.
 
